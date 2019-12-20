@@ -130,13 +130,13 @@ export default {
           { required: true, message: "请输入商品名称", trigger: "blur" }
         ],
         goods_number: [
-          { required: true, message: "请输入商品名称", trigger: "blur" }
+          { required: true, message: "请输入商品数量", trigger: "blur" }
         ],
         goods_price: [
-          { required: true, message: "请输入商品名称", trigger: "blur" }
+          { required: true, message: "请输入商品价格", trigger: "blur" }
         ],
         goods_weight: [
-          { required: true, message: "请输入商品名称", trigger: "blur" }
+          { required: true, message: "请输入商品重量", trigger: "blur" }
         ],
         goods_cat: [
           { required: true, message: "请输入商品分类", trigger: "blur" }
@@ -161,6 +161,7 @@ export default {
       if (this.addForm.goods_cat == null) {
         return this.$message.error("请将商品信息补充完整");
       }
+      let tmpdata = this.addForm.goods_cat;
       this.addForm.goods_cat = this.addForm.goods_cat.join(",");
 
       // console.log(this.addForm.goods_cat);
@@ -175,6 +176,7 @@ export default {
           this.$router.push("/goods");
         } else {
           this.$message.error(res.meta.msg);
+          this.addForm.goods_cat = tmpdata;
         }
       });
     },

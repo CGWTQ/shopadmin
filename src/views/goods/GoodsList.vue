@@ -166,6 +166,7 @@ export default {
     //  编辑点击确定请求接口
     EditFn() {
       // 转化为字符串
+      let tmpdata = this.editFormData.goods_cat;
       this.editFormData.goods_cat = this.editFormData.goods_cat.join(",");
       putGoodsList(this.editFormData.goods_id, this.editFormData).then(res => {
         if (res.meta.status == 200) {
@@ -175,7 +176,9 @@ export default {
           this.getGoodsListFn();
           // 3.弹框隐藏
           this.isShowEditTk = false;
+          this.editFormData.goods_cat = tmpdata;
         } else {
+          this.editFormData.goods_cat = tmpdata;
           this.$message.error("操作失败");
         }
       });
