@@ -342,6 +342,10 @@ export default {
 .swiper2 {
   width: 80px;
 }
+.el-scrollbar__wrap{
+  overflow: hidden;
+  overflow-y:scroll !important;
+}
 .swiper-slide {
   width: auto !important;
 }
@@ -368,6 +372,8 @@ export default {
   }
 }
 .mian {
+  overflow: hidden !important;
+  overflow-y:auto !important; 
   // height: 100%;
   padding: 0px;
   .mianHeader {

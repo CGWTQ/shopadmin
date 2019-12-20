@@ -205,6 +205,7 @@ export default {
         Authorization: mytoken
       };
     },
+
     //   级联选择器变化触发
     handleChange() {
       if (this.addForm.goods_cat.length !== 3) {

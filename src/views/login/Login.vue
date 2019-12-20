@@ -14,8 +14,9 @@
             type="password"
             show-password
           ></el-input>
-          <el-checkbox v-model="radio">记住密码</el-checkbox>
+          
         </el-form-item>
+        <el-checkbox v-model="radio" style="float:left;margin-bottom:5px;">记住密码</el-checkbox>
         <el-form-item>
           <el-button type="primary" @click="onSubmit" v-if="isdisabled">登录</el-button>
           <el-button type="primary" @click="onSubmit" disabled v-else>正在登录...</el-button>
@@ -85,12 +86,15 @@ export default {
                 sessionStorage.setItem("token", res.data.token);
               }
               localStorage.setItem("username", res.data.username);
+              
               return;
             })
             .then(() => {
               this.isdisabled = true;
               // 路由跳转
+              
               this.$router.push("/home");
+              location.reload()
             });
         }, 1000);
       });

@@ -18,6 +18,9 @@ Vue.config.productionTip = false
 // 引入echarts
 import echarts from 'echarts'
 Vue.prototype.$echarts = echarts
+// 引入v-charts
+import VCharts from 'v-charts'
+Vue.use(VCharts)
 
 // 引入动画
 import animated from 'animate.css'

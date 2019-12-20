@@ -23,14 +23,14 @@ export default [
             position: 'bottom',
         }
     },
-    {
-        element: '#mainInfo',
-        popover: {
-            title: '内容区',
-            description: '显示页面内容',
-            position: 'top',
-        }
-    },
+    // {
+    //     element: '#mainInfo',
+    //     popover: {
+    //         title: '内容区',
+    //         description: '显示页面内容',
+    //         position: 'left',
+    //     }
+    // },
     {
         element: '#nav',
         popover: {

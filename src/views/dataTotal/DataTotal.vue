@@ -23,7 +23,8 @@
         <p>总访问量:{{ goods.total }}</p>
       </div>
     </div>
-    <div id="myChart" :style="{width: '100%', height: '300px'}"></div>
+    <div id="myChart" :style="{width: '50%', height: '300px',float:'left'}"></div>
+    <ve-pie :data="chartData" :style="{width: '50%', height: '300px',float:'right',marginTop:'10px'}"></ve-pie>
   </div>
 </template>
 <script>
@@ -32,6 +33,12 @@ import { getData, getHot } from "@/api";
 export default {
   data() {
     return {
+      // 饼图数据
+      chartData: {
+          columns: ['rp2_page', 'rp2_count'],
+          rows: [
+          ]
+        },
       // 折线图数据
       dataTotal: {},
       // 一周热度数据
@@ -62,6 +69,8 @@ export default {
     this.getData();
     // 热度数据
     this.getHot();
+    // 饼图
+    this.getBdata()
   },
   mounted() {
     // 绘制图表
@@ -96,6 +105,15 @@ export default {
         (this.goods.data = "2017-12-29"),
           (this.goods.total = res.data["2017-12-29"][3].rp2_count);
       });
+    },
+    // 饼图数据
+    getBdata(){
+      getHot().then(res => {
+        if (res.meta.status != 200) {
+          return this.$message.error("获取数据失败");
+        }
+        this.chartData.rows = res.data['2017-12-1']
+      })
     },
     //绘制图表
     // 折线图
