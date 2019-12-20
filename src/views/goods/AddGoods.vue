@@ -198,7 +198,7 @@ export default {
     },
     //自定义请求头
     setHeader() {
-      var mytoken = localStorage.getItem("token");
+      var mytoken = localStorage.getItem("token") || sessionStorage.getItem("token");
       return {
         Authorization: mytoken
       };
