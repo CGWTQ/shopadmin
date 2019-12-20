@@ -17,13 +17,13 @@
     </el-row>
     <!-- 表格 -->
     <el-table :data="initData.goods" border style="width: 100%;" v-loading="loading">
-      <el-table-column prop="goods_id" label="#" width="50"></el-table-column>
-      <el-table-column prop="goods_name" label="商品名称" width="300"></el-table-column>
+      <el-table-column prop="goods_id" label="#" ></el-table-column>
+      <el-table-column prop="goods_name" label="商品名称" ></el-table-column>
 
-      <el-table-column prop="goods_price" label="商品价格" width="100"></el-table-column>
-      <el-table-column prop="goods_weight" label="商品重量" width="100"></el-table-column>
-      <el-table-column prop="goods_number" label="商品数量" width="100"></el-table-column>
-      <el-table-column prop="add_time" label="创建时间" width="180">
+      <el-table-column prop="goods_price" label="商品价格" ></el-table-column>
+      <el-table-column prop="goods_weight" label="商品重量" ></el-table-column>
+      <el-table-column prop="goods_number" label="商品数量" ></el-table-column>
+      <el-table-column prop="add_time" label="创建时间">
         <template slot-scope="scope">{{scope.row.add_time | dateFormat2}}</template>
       </el-table-column>
       <el-table-column prop="caozuo" label="操作">

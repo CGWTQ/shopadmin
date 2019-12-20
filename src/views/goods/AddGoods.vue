@@ -104,7 +104,7 @@ export default {
       textarea2: "",
       dialogImageUrl: "",
       dialogVisible: false,
-      uploadURL: "http://localhost:8888/api/private/v1/upload",
+      uploadURL: "http://47.94.139.233:8888/api/private/v1/upload",
       //  pics:[],	        // 上传的图片临时路径（对象）	可以为空  {"pic":"/tmp_uploads/30f08d52c551ecb447277eae232304b8"}
       //  attrs:'',
       // 获取商品分类列表数据
@@ -154,13 +154,21 @@ export default {
     createFn() {
       this.$refs.addFormRef.validate(valid => {
         if (!valid) {
-          this.$message.error("请将商品信息补充完整");
+          return this.$message.error("请将商品信息补充完整");
         }
       });
-      // 转化为字符串
+      // // 转化为字符串
+      if (this.addForm.goods_cat == null) {
+        return this.$message.error("请将商品信息补充完整");
+      }
       this.addForm.goods_cat = this.addForm.goods_cat.join(",");
+
+      // console.log(this.addForm.goods_cat);
+
       postGoods(this.addForm).then(res => {
+        // console.log(res);
         if (res.meta.status == 201) {
+          // console.log(this.addForm.pics)
           this.$message.success("添加商品成功");
           //重新发送请求
           this.getCateList();
@@ -185,8 +193,7 @@ export default {
     handleSuccess(response) {
       // console.log(response.status.tmp_path)
       // console.log(response.meta.status.tmp_path);
-      // var img = {"pic":"/tmp_uploads/30f08d52c551ecb447277eae232304b8"}
-      let img = { pic: response.meta.status.tmp_path };
+      let img = "{ pic:" + response.meta.status.tmp_path + "}";
       this.addForm.pics.push(img);
     },
     //自定义请求头

@@ -27,11 +27,11 @@ Vue.use(animated)
 import Driver from 'driver.js'
 import 'driver.js/dist/driver.min.css'
 Vue.prototype.$driver = new Driver({
-  doneBtnText: '完成',              // Text on the final button
-  closeBtnText: '关闭',            // Text on the close button for this step
-  stageBackground: '#fff',       // Background color for the staged behind highlighted element
-  nextBtnText: '下一步',              // Next button text for this step
-  prevBtnText: '上一步',          // Previous button text for this step
+  doneBtnText: '完成', // Text on the final button
+  closeBtnText: '关闭', // Text on the close button for this step
+  stageBackground: '#fff', // Background color for the staged behind highlighted element
+  nextBtnText: '下一步', // Next button text for this step
+  prevBtnText: '上一步', // Previous button text for this step
 })
 
 
@@ -40,7 +40,7 @@ Vue.prototype.$driver = new Driver({
 Vue.filter('dateFormat', function (originVal) {
   const dt = new Date(originVal)
   // //yyy---mm-dd
-  var y = dt.getFullYear()//得到年份
+  var y = dt.getFullYear() //得到年份
   var m = (dt.getMonth() + 1 + '').padStart(2, '0')
   var d = (dt.getDate() + '').padStart(2, '0')
   var hh = (dt.getHours() + '').padStart(2, '0')
@@ -61,7 +61,7 @@ Vue.directive('focus', {
 
 // 引入进度条
 import NProgress from 'nprogress' // 引入nprogress插件
-import 'nprogress/nprogress.css'  // 这个nprogress样式必须引入
+import 'nprogress/nprogress.css' // 这个nprogress样式必须引入
 
 // 使用进度条
 router.beforeEach((to, from, next) => {
@@ -80,7 +80,9 @@ router.beforeEach((to, from, next) => {
   if (to.path != '/login') {
     let token = localStorage.getItem('token') || sessionStorage.getItem('token');
     if (!token) {
-      next({ path: '/login' })
+      next({
+        path: '/login'
+      })
       return;
     }
   }
@@ -89,17 +91,17 @@ router.beforeEach((to, from, next) => {
 
 Vue.component('tree-table', TreeTable)
 // 日期过滤器
-Vue.filter('dateFormat2',function(val){
-   const dt=new Date(val)
+Vue.filter('dateFormat2', function (val) {
+  const dt = new Date(val)
 
-   const y=dt.getFullYear()
-   const m=(dt.getMonth()+1+'').padStart(2,'0')
-   const d=(dt.getDate()+'').padStart(2,'0')
-   
-   const hh=(dt.getHours()+'').padStart(2,'0')
-   const mm=(dt.getMinutes()+'').padStart(2,'0')
-   const ss=(dt.getSeconds()+'').padStart(2,'0')
-   return `${y}-${m}-${d} ${hh}:${mm}:${ss}`
+  const y = dt.getFullYear()
+  const m = (dt.getMonth() + 1 + '').padStart(2, '0')
+  const d = (dt.getDate() + '').padStart(2, '0')
+
+  const hh = (dt.getHours() + '').padStart(2, '0')
+  const mm = (dt.getMinutes() + '').padStart(2, '0')
+  const ss = (dt.getSeconds() + '').padStart(2, '0')
+  return `${y}-${m}-${d} ${hh}:${mm}:${ss}`
 })
 new Vue({
   router,

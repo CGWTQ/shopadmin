@@ -2,7 +2,6 @@
 import axios from 'axios'
 // import NProgress from 'nprogress' // 引入nprogress插件
 //2.全局配置
-// axios.defaults.baseURL = 'http://127.0.0.1:8888/api/private/v1'
 axios.defaults.baseURL = 'http://47.94.139.233:8888/api/private/v1'
 
 let token = localStorage.getItem('token') || sessionStorage.getItem('token') || 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjUwMCwicmlkIjowLCJpYXQiOjE1NzY1NTIzNjAsImV4cCI6MTU3NjYzODc2MH0.oKpHuKgUxCEE9r5-AlKBZg04I7DTlCUtdd4r2yEpguY'
@@ -141,9 +140,9 @@ export const postGoods=postData=>{
     return axios.post('goods',postData).then(res=>res.data)
 }
 //上传图片
-export const postFile=postData=>{
-    return axios.post('upload',postData).then(res=>res.data)
-}
+// export const postFile=postData=>{
+//     return axios.post('upload',postData).then(res=>res.data)
+// }
 //分类列表渲染
 export const getGoodsfl = params => { //{query,pagesize,pagenum}
     return axios({
