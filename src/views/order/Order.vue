@@ -67,8 +67,25 @@
                   
                 </span>
                 </el-dialog>
-          <!-- 订单列表 -->
+         <!-- 打印表格 -->
+          <el-button type="primary"  @click="dialogVisible2 = true">打印表格</el-button>
+           <el-dialog
+                title="打印页面"
+                :visible.sync="dialogVisible2"
+                width="40%"
+                :loading="loading"
+                size="mini"
+                @open="dialogOpen"
+                >
+                <p>是否打印表格？</p>
+                <span slot="footer" class="dialog-footer">
+                    <el-button @click="dialogVisible2 = false">取 消</el-button>
+                    <el-button type="primary" @click='dialogVisible2 = false' v-print="'#printTest'">去打印</el-button>
+                </span>
+                </el-dialog>
+                 <!-- 订单列表 -->
             <el-table
+                  id="printTest"
                 v-loading="loading"
                 class="animated fadeInLeft"
                 border
@@ -149,6 +166,7 @@ export default {
     },
     data(){
         return {
+            dialogVisible2:false,
             // loading
             loading:true,
             id:null,
@@ -180,6 +198,7 @@ export default {
         }
     },
     methods: {
+         dialogOpen(){},
         //导出excel
          exportExcel() {
             require.ensure([], () => {
@@ -338,5 +357,7 @@ export default {
 .iconfont{
     float: right;
 }
-
+.el-button--primary{
+    margin-left: 20px !important
+}
 </style>
