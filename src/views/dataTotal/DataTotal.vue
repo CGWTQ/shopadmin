@@ -112,7 +112,9 @@ export default {
         if (res.meta.status != 200) {
           return this.$message.error("获取数据失败");
         }
+        
         this.chartData.rows = res.data['2017-12-1']
+
       })
     },
     //绘制图表

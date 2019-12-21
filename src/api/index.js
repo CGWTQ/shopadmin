@@ -179,3 +179,8 @@ export const setGoodsCate = (catId, params) => {
 export const cateSearch = params => {
     return axios.get(`categories/${params}`).then(res => res.data)
 }
+
+// 角色分配
+export const setRoles = (id, params) => {
+    return axios.put(`users/${id}/role`, params).then(res => res.data)
+}

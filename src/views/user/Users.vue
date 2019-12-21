@@ -43,7 +43,7 @@
       <p>是否打印表格？</p>
       <span slot="footer" class="dialog-footer">
         <el-button @click="dialogVisible2 = false">取 消</el-button>
-        <el-button type="primary" @click='dialogVisible2 = false' v-print="'#printTest'">去打印</el-button>
+        <el-button type="primary" @click="dialogVisible2 = false" v-print="'#printTest'">去打印</el-button>
       </span>
     </el-dialog>
 
@@ -77,8 +77,27 @@
       </el-table-column>
       <el-table-column label="操作">
         <template slot-scope="scope">
-          <el-button size="mini" type="primary" @click="showEditUser(scope.row)">编辑</el-button>
-          <el-button size="mini" type="danger" @click="deleteUser(scope.row.id)">删除</el-button>
+          <el-button
+            size="mini"
+            icon="el-icon-edit"
+            type="primary"
+            @click="showEditUser(scope.row)"
+          ></el-button>
+          <el-button
+            size="mini"
+            icon="el-icon-delete"
+            type="danger"
+            @click="deleteUser(scope.row.id)"
+          ></el-button>
+          <el-tooltip
+            class="item"
+            effect="light"
+            :enterable="false"
+            content="分配角色"
+            placement="top-start"
+          >
+            <el-button size="mini" icon="el-icon-check" type="warning" @click="fPfn(scope.row)"></el-button>
+          </el-tooltip>
         </template>
       </el-table-column>
     </el-table>
@@ -134,12 +153,46 @@
         <el-button type="primary" @click="editUserFn">确 定</el-button>
       </span>
     </el-dialog>
+    <!-- 分配角色弹框 -->
+    <el-dialog title="分配角色" :visible.sync="dialogVisibleFP" width="30%" :before-close="handleClose">
+      <p>当前用户名：{{ setRoleData.username }}</p>
+      <br />
+      <p>当前的角色：{{ setRoleData.role }}</p>
+      <br />
+      <!-- 角色 -->
+      
+        <span>分配角色：</span>
+        <el-select v-model="roleValue" placeholder="请选择">
+          <!-- <template slot-scope="scope"> -->
+          <el-option
+            v-for="item in setRoleData.data"
+            :key="item.id"
+            :label="item.roleName"
+            :value="item.id"
+          ></el-option>
+          <!-- </template> -->
+        </el-select>
+      
+
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="dialogVisibleFP = false">取 消</el-button>
+        <el-button type="primary" @click="setRoleFn">确 定</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 
 <script>
 // 导入接口请求
-import { getUsers, postUsers, delUsers, putUsers, putUsersState } from "@/api";
+import {
+  getUsers,
+  postUsers,
+  delUsers,
+  putUsers,
+  putUsersState,
+  getRolesList,
+  setRoles
+} from "@/api";
 
 export default {
   data() {
@@ -165,8 +218,11 @@ export default {
       callback();
     };
     return {
+      // 分配角色
+      roleValue: "",
+      dialogVisibleFP: false,
+      dialogVisible2: false,
       // loading
-      dialogVisible2:false,
       loading: true,
       value2: "",
       val: [],
@@ -217,6 +273,13 @@ export default {
         id: 0,
         email: "",
         mobile: ""
+      },
+      // 分配角色数据
+      setRoleData: {
+        id: null,
+        username: "",
+        role: "",
+        data: []
       }
     };
   },
@@ -226,8 +289,37 @@ export default {
   },
   computed: {},
   methods: {
-    // 
-    dialogOpen(){},
+
+    // 分配
+    fPfn(data) {
+      this.setRoleData.username = data.username;
+      this.setRoleData.role = data.role_name;
+      this.setRoleData.id = data.id;
+      getRolesList().then(res => {
+        if(res.meta.status != 200){
+          return this.$message.error('角色数据获取失败');
+        }
+        this.setRoleData.data = res.data;
+      });
+      this.dialogVisibleFP = true;
+    },
+    // 分配确定
+    setRoleFn() {
+      if(this.roleValue == ''){
+        return this.$message.error('请选择角色');
+      }
+      this.dialogVisibleFP = false;
+      setRoles(this.setRoleData.id,{rid:this.roleValue})
+      .then(res => {
+        if(res.meta.msg == 200){
+          this.getUserList()
+          return  this.$message.success("分配成功");
+        }
+        return this.$message.error('分配失败');
+      })
+    },
+    //
+    dialogOpen() {},
     // 取对象键名
     //写成标准的方法(数组是object的一种)：
     getObjectKeys(object) {
