@@ -1,21 +1,36 @@
 //1.引入axios模块
 import axios from 'axios'
-// import NProgress from 'nprogress' // 引入nprogress插件
+import NProgress from 'nprogress' // 引入nprogress插件
+import 'nprogress/nprogress.css'
 //2.全局配置
 axios.defaults.baseURL = 'http://47.94.139.233:8888/api/private/v1'
 
-let token = localStorage.getItem('token') || sessionStorage.getItem('token') || 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjUwMCwicmlkIjowLCJpYXQiOjE1NzY1NTIzNjAsImV4cCI6MTU3NjYzODc2MH0.oKpHuKgUxCEE9r5-AlKBZg04I7DTlCUtdd4r2yEpguY'
-axios.defaults.headers.common['Authorization'] = token
-
-
 
 // 添加请求拦截器
-// axios.interceptors.request.use(function () {
-//     NProgress.start()
-// })
-// axios.interceptors.response.use(function () {
-//     NProgress.done()
-// })
+axios.interceptors.request.use(function (config) {
+    NProgress.start()
+    //1.获取token
+    var token = localStorage.getItem('token') || sessionStorage.getItem('token')
+    //2.判断
+    if (token) {
+        //设置请求头（后期请求接口 http请求头携带Authorization参数）
+        config.headers['Authorization'] = token
+    }
+    return config
+}, function (error) {
+    // Do something with request error
+    return Promise.reject(error)
+})
+
+// 在 response 拦截器中，隐藏进度条 NProgress.done()
+axios.interceptors.response.use(config => {
+    NProgress.done()
+    return config
+})
+
+// let token = localStorage.getItem('token') || sessionStorage.getItem('token') || 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjUwMCwicmlkIjowLCJpYXQiOjE1NzY1NTIzNjAsImV4cCI6MTU3NjYzODc2MH0.oKpHuKgUxCEE9r5-AlKBZg04I7DTlCUtdd4r2yEpguY'
+// axios.defaults.headers.common['Authorization'] = token
+
 
 // 语法
 // GET      axios.get(请求路径，{params: 数据对象})   
@@ -183,4 +198,21 @@ export const cateSearch = params => {
 // 角色分配
 export const setRoles = (id, params) => {
     return axios.put(`users/${id}/role`, params).then(res => res.data)
+}
+
+// 获取分类参数
+export const getParams = (id,params) => {
+    return axios.get(`categories/${id}/attributes`,{ params }).then(res => res.data)
+}
+// 添加相应分类参数
+export const addParams = (id,params) => {
+    return axios.post(`categories/${id}/attributes`, params).then(res => res.data)
+}
+// 修改分类参数
+export const editParams = (id,attrId,params) => {
+    return axios.put(`categories/${id}/attributes/${attrId}`, params).then(res => res.data)
+}
+// 删除分类参数
+export const removeParams = (id,attrId) => {
+    return axios.delete(`categories/${id}/attributes/${attrId}`).then(res => res.data)
 }

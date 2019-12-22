@@ -13,13 +13,14 @@
             v-model="loginForm.password"
             type="password"
             show-password
+            @keyup.enter.native="onSubmit"
           ></el-input>
           
         </el-form-item>
         <el-checkbox v-model="radio" style="float:left;margin-bottom:5px;">记住密码</el-checkbox>
         <el-form-item>
           <el-button type="primary" @click="onSubmit" v-if="isdisabled">登录</el-button>
-          <el-button type="primary" @click="onSubmit" disabled v-else>正在登录...</el-button>
+          <el-button type="primary"  disabled v-else>正在登录...</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -94,7 +95,7 @@ export default {
               // 路由跳转
               
               this.$router.push("/home");
-              location.reload()
+              // location.reload()
             });
         }, 1000);
       });

@@ -4,7 +4,7 @@
         <el-input prefix-icon="el-icon-search" v-model="search" placeholder="请输入内容" clearable @clear="clearSearchFn">
            <el-button slot="append" icon="el-icon-search" @click='searchFn'></el-button>
         </el-input>      
-        <el-button class="iconfont icon-xiazai"  @click="exportExcel">
+        <el-button round class="iconfont icon-xiazai"  @click="exportExcel">
                 EXCEL
             </el-button>  
            
@@ -16,7 +16,7 @@
                     :before-close="handleClose">
                     <el-form  label-width="80px" :model="goodsList" ref="isEditFlag">
                          <el-form-item label="订单号" >
-                             <el-input v-model="goodsList.id"></el-input>
+                             <el-input disabled v-model="goodsList.id"></el-input>
                         </el-form-item>
                         <el-form-item label="是否支付" >                            
                             <el-input   v-model="goodsList.pay_status">                            
@@ -27,7 +27,7 @@
                          <el-input v-model="goodsList.is_send"></el-input>
                         </el-form-item>
                         <el-form-item label="订单编号" >
-                         <el-input v-model="goodsList.order_number"></el-input>
+                         <el-input disabled v-model="goodsList.order_number"></el-input>
                         </el-form-item>
                     </el-form>
                     <span slot="footer" class="dialog-footer">
@@ -68,7 +68,7 @@
                 </span>
                 </el-dialog>
          <!-- 打印表格 -->
-          <el-button type="primary"  @click="dialogVisible2 = true">打印表格</el-button>
+          <el-button type="primary" round  @click="dialogVisible2 = true">打印表格</el-button>
            <el-dialog
                 title="打印页面"
                 :visible.sync="dialogVisible2"

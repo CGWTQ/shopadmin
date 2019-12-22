@@ -387,7 +387,6 @@ export default {
     float: left;
   }
   #mainInfo {
-    // height: 100%;
     padding: 0 30px;
   }
   .btn {

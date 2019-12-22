@@ -63,17 +63,17 @@ Vue.directive('focus', {
 })
 
 // 引入进度条
-import NProgress from 'nprogress' // 引入nprogress插件
-import 'nprogress/nprogress.css' // 这个nprogress样式必须引入
+// import NProgress from 'nprogress' // 引入nprogress插件
+// import 'nprogress/nprogress.css' // 这个nprogress样式必须引入
 
 // 使用进度条
-router.beforeEach((to, from, next) => {
-  NProgress.start()
-  next()
-})
-router.afterEach(() => {
-  NProgress.done()
-})
+// router.beforeEach((to, from, next) => {
+//   NProgress.start()
+//   next()
+// })
+// router.afterEach(() => {
+//   NProgress.done()
+// })
 // 打印
 import Print from 'vue-print-nb'
 Vue.use(Print);
